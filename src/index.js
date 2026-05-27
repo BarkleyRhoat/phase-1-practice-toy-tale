@@ -31,6 +31,24 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.className = "like-btn";
     btn.id = toy.id;
     btn.textContent = "Like ❤️";
+    btn.addEventListener("click", (e) => {
+      const toyId = e.target.id;
+      const p = e.target.parentElement.querySelector("p");
+      const currentLikes = parseInt(p.textContent);
+
+      fetch(`http://localhost:3000/toys/${toyId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ likes: currentLikes + 1 }),
+      })
+        .then((res) => res.json())
+        .then((updatedToy) => {
+          p.textContent = updatedToy.likes + " Likes";
+        });
+    });
 
     card.appendChild(h2);
     card.appendChild(img);
