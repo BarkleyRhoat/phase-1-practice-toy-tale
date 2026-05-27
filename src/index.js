@@ -17,10 +17,30 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((toys) => {
       const toyCollection = document.querySelector("#toy-collection");
       toys.forEach((toy) => {
-        console.log('toy:', toy)
-        console.log('toys:', toys)
+        console.log("toy:", toy);
+        console.log("toys:", toys);
         const card = document.createElement("div");
         card.className = "card";
+
+        const h2 = document.createElement("h2");
+
+        const img = document.createElement("img");
+        img.src = toy.image;
+        console.log("image:", toy.image);
+        img.className = "toy-avatar";
+
+        const p = document.createElement("p");
+
+        const btn = document.createElement("button");
+        btn.className = "like-btn";
+        btn.id = toy.id;
+        btn.textContent = "Like ❤️";
+
+        card.appendChild(btn);
+        card.appendChild(p);
+        card.appendChild(img);
+        card.appendChild(h2);
+
         toyCollection.appendChild(card);
       });
     });
