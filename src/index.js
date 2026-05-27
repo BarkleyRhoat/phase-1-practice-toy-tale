@@ -12,38 +12,56 @@ document.addEventListener("DOMContentLoaded", () => {
       toyFormContainer.style.display = "none";
     }
   });
+  function showToy(toy) {
+    const toyCollection = document.querySelector("#toy-collection");
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const h2 = document.createElement("h2");
+    h2.textContent = toy.name;
+
+    const img = document.createElement("img");
+    img.src = toy.image;
+    img.className = "toy-avatar";
+
+    const p = document.createElement("p");
+    p.textContent = toy.likes + " Likes";
+
+    const btn = document.createElement("button");
+    btn.className = "like-btn";
+    btn.id = toy.id;
+    btn.textContent = "Like ❤️";
+
+    card.appendChild(h2);
+    card.appendChild(img);
+    card.appendChild(p);
+    card.appendChild(btn);
+
+    toyCollection.appendChild(card);
+  }
   fetch("http://localhost:3000/toys")
     .then((res) => res.json())
     .then((toys) => {
-      const toyCollection = document.querySelector("#toy-collection");
-      toys.forEach((toy) => {
-        console.log("toy:", toy);
-        console.log("toys:", toys);
-        const card = document.createElement("div");
-        card.className = "card";
-
-        const h2 = document.createElement("h2");
-
-        const img = document.createElement("img");
-        img.src = toy.image;
-        console.log("image:", toy.image);
-        img.className = "toy-avatar";
-
-        const p = document.createElement("p");
-
-        const btn = document.createElement("button");
-        btn.className = "like-btn";
-        btn.id = toy.id;
-        btn.textContent = "Like ❤️";
-
-        card.appendChild(btn);
-        card.appendChild(p);
-        card.appendChild(img);
-        card.appendChild(h2);
-
-        toyCollection.appendChild(card);
-      });
+      toys.forEach((toy) => showToy(toy));
     });
+
+  const form = document.querySelector(".add-toy-form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.querySelector("input[name='name']").value;
+    const image = document.querySelector("input[name='image']").value;
+
+    fetch("http://localhost:3000/toys", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ name: name, image: image, likes: 0 }),
+    })
+      .then((res) => res.json())
+      .then((newToy) => showToy(newToy));
+  });
 });
 
 //Set up event listeners to respond to user events
