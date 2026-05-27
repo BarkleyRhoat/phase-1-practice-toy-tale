@@ -82,16 +82,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//Set up event listeners to respond to user events
 
-//Use fetch() to make a "GET" request, then render the returned toys to the DOM
-
-//Use fetch() to make a "POST" request to create a new toy, then add it to the DOM
-
-//Use fetch() to make a "PATCH" request that updates an existing toy, then render the updated information to the DOM
-
-//Access the list of toys from an API (mocked using JSON Server) and render each of them in a "card" on the page
-
-//Hook up a form that enables users to add new toys. Create an event listener so that, when the form is submitted, the new toy is persisted to the database and a new card showing the toy is added to the DOM
-
-//Create an event listener that gives users the ability to click a button to "like" a toy. When the button is clicked, the number of likes should be updated in the database and the updated information should be rendered to the DOM
